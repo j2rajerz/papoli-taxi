@@ -1,0 +1,26 @@
+{
+  "name": "papoli-taxi",
+  "version": "2.0.0",
+  "description": "اپلیکیشن مدیریت سرویس مدرسه خانم پاپلی",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "build": "node generate-icons.js",
+    "validate": "html-validate index.html",
+    "deploy": "gh-pages -d ."
+  },
+  "keywords": [
+    "taxi",
+    "service",
+    "management",
+    "pwa",
+    "persian"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "canvas": "^2.11.2",
+    "gh-pages": "^5.0.0",
+    "html-validate": "^8.1.1"
+  }
+}
