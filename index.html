@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت سرویس خانم پاپلی</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn@5.0.1/index.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- صفحه ورود -->
+    <div id="loginPage" class="login-container">
+        <div class="login-card">
+            <h2>🔒 مدیریت سرویس خانم پاپلی</h2>
+            <div class="form-group">
+                <input type="password" class="form-input" id="loginPassword" placeholder="رمز ورود">
+            </div>
+            <button class="btn glow-animation" style="width: 100%;" id="loginBtn">ورود به برنامه</button>
+            <div class="sync-status" style="margin-top: 15px;">
+                <small>برای اولین بار از رمز پیش‌فرض "1234" استفاده کنید</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- برنامه اصلی -->
+    <div id="mainApp" class="container hidden">
+        <header>
+            <div class="logo">مدیریت سرویس خانم پاپلی 
+                <span id="syncStatus" class="sync-status">
+                    <span class="status-indicator status-offline"></span>
+                    <span>آفلاین</span>
+                </span>
+            </div>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </header>
+
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-target="dashboard">🏠 داشبورد</div>
+            <div class="nav-tab" data-target="passengers">👩‍🎓 مسافران</div>
+            <div class="nav-tab" data-target="transactions">💵 تراکنش‌ها</div>
+            <div class="nav-tab" data-target="reports">📊 گزارشات</div>
+            <div class="nav-tab" data-target="settings">⚙️ تنظیمات</div>
+        </div>
+
+        <!-- بخش داشبورد -->
+        <div id="dashboard" class="content-section active">
+            <div class="dashboard-grid">
+                <div class="glass-card stat-card neon-border">
+                    <div>درآمد امروز</div>
+                    <div class="stat-value" id="todayIncome">0 تومان</div>
+                    <div>💰</div>
+                </div>
+                <div class="glass-card stat-card">
+                    <div>درآمد هفته</div>
+                    <div class="stat-value" id="weekIncome">0 تومان</div>
+                    <div>📅</div>
+                </div>
+                <div class="glass-card stat-card">
+                    <div>درآمد ماه</div>
+                    <div class="stat-value" id="monthIncome">0 تومان</div>
+                    <div>📈</div>
+                </div>
+                <div class="glass-card stat-card">
+                    <div>موجودی حساب</div>
+                    <div class="stat-value" id="totalBalance">0 تومان</div>
+                    <div>💳</div>
+                </div>
+            </div>
+
+            <div class="glass-card alert-card">
+                <div class="alert-header">
+                    <i class="bi bi-exclamation-triangle-fill alert-icon"></i>
+                    <h3>هشدار: مشتریان پرداخت نکرده</h3>
+                    <span class="badge badge-danger" id="unpaidCount">0 نفر</span>
+                </div>
+                <div class="alert-list" id="unpaidList">
+                    <!-- لیست مشتریان پرداخت نکرده -->
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h3>آخرین هزینه‌ها</h3>
+                <div class="transaction-list" id="recentExpenses">
+                    <!-- آخرین هزینه‌ها -->
+                </div>
+            </div>
+        </div>
+
+        <!-- بخش مدیریت مسافران -->
+        <div id="passengers" class="content-section">
+            <div class="glass-card">
+                <h3>لیست مسافران</h3>
+                <button class="btn glow-animation" id="addPassengerBtn"><i class="bi bi-plus"></i> افزودن مسافر</button>
+                
+                <div class="form-group" style="margin-top: 15px;">
+                    <input type="text" class="form-input" id="searchPassenger" placeholder="جستجو در مسافران...">
+                </div>
+                
+                <div class="transaction-list" id="passengersList">
+                    <!-- مسافران به صورت دینامیک اضافه خواهند شد -->
+                </div>
+            </div>
+        </div>
+
+        <!-- بخش تراکنش‌ها -->
+        <div id="transactions" class="content-section">
+            <div class="glass-card">
+                <h3>ثبت تراکنش جدید</h3>
+                <div class="form-group">
+                    <select class="form-input" id="transactionType">
+                        <option value="">نوع تراکنش</option>
+                        <option value="income-cash">درآمد (نقدی)</option>
+                        <option value="income-card">درآمد (کارت)</option>
+                        <option value="fuel">⛽ سوخت</option>
+                        <option value="repair">🔧 تعمیرات</option>
+                        <option value="insurance">📑 بیمه</option>
+                        <option value="car-supplies">🚗 لوازم خودرو</option>
+                        <option value="other">سایر</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-input" id="transactionPassenger">
+                        <option value="">مسافر (اختیاری)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-input" id="transactionAmount" placeholder="مبلغ (تومان)">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-input" id="transactionDescription" placeholder="توضیحات">
+                </div>
+                <div class="form-group">
+                    <input type="date" class="form-input" id="transactionDate">
+                </div>
+                <button class="btn glow-animation" style="width: 100%;" id="saveTransactionBtn"><i class="bi bi-check-lg"></i> ثبت تراکنش</button>
+            </div>
+
+            <div class="glass-card">
+                <h3>تاریخچه تراکنش‌ها</h3>
+                <div class="form-group">
+                    <input type="text" class="form-input" id="filterTransactions" placeholder="فیلتر بر اساس تاریخ یا نوع...">
+                </div>
+                <div class="transaction-list" id="transactionsList">
+                    <!-- تراکنش‌ها به صورت دینامیک اضافه خواهند شد -->
+                </div>
+            </div>
+        </div>
+
+        <!-- بخش گزارشات -->
+        <div id="reports" class="content-section">
+            <div class="glass-card">
+                <h3>گزارش درآمد و هزینه - 6 ماه اخیر</h3>
+                <div class="chart-bar" id="incomeChart">
+                    <!-- نمودار درآمد -->
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h3>ارسال صورتحساب</h3>
+                <div class="form-group">
+                    <select class="form-input" id="selectCustomer">
+                        <option value="">انتخاب مسافر</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="date" class="form-input" id="fromDate" placeholder="از تاریخ">
+                </div>
+                <div class="form-group">
+                    <input type="date" class="form-input" id="toDate" placeholder="تا تاریخ">
+                </div>
+                <button class="btn glow-animation" style="width: 100%;" id="generateReportBtn"><i class="bi bi-file-text"></i> ایجاد گزارش</button>
+                <button class="btn" style="width: 100%; margin-top: 10px;" id="sendSMSBtn"><i class="bi bi-send"></i> ارسال از طریق SMS</button>
+            </div>
+
+            <div class="glass-card" id="reportResult" style="display: none;">
+                <h3>نتایج گزارش</h3>
+                <div id="reportContent"></div>
+            </div>
+        </div>
+
+        <!-- بخش تنظیمات -->
+        <div id="settings" class="content-section">
+            <div class="glass-card">
+                <h3>تنظیمات ذخیره‌سازی ابری</h3>
+                <div class="form-group">
+                    <label>GitHub Gist ID:</label>
+                    <input type="text" class="form-input" id="gistId" placeholder="شناسه Gist (اختیاری)">
+                    <small>برای ذخیره‌سازی ابری، یک Gist عمومی در GitHub ایجاد کنید و ID آن را اینجا وارد کنید</small>
+                </div>
+                <div class="form-group">
+                    <label>GitHub Token:</label>
+                    <input type="password" class="form-input" id="githubToken" placeholder="توکن دسترسی GitHub را اینجا وارد کنید">
+                </div>
+                <button class="btn" style="width: 100%;" id="saveCloudSettings"><i class="bi bi-cloud-upload"></i> ذخیره تنظیمات ابری</button>
+                <button class="btn" style="width: 100%; margin-top: 10px;" id="syncNowBtn"><i class="bi bi-arrow-repeat"></i> همگام‌سازی الآن</button>
+                
+                <div class="sync-status" id="cloudStatus">
+                    <span class="status-indicator status-offline"></span>
+                    <span>همگام‌سازی ابری غیرفعال</span>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h3>تنظیمات امنیتی</h3>
+                <div class="form-group">
+                    <label>رمز ورود جدید:</label>
+                    <input type="password" class="form-input" id="newPassword" placeholder="رمز جدید">
+                </div>
+                <div class="form-group">
+                    <label>تکرار رمز ورود:</label>
+                    <input type="password" class="form-input" id="confirmPassword" placeholder="تکرار رمز">
+                </div>
+                <button class="btn" style="width: 100%;" id="changePasswordBtn"><i class="bi bi-lock"></i> تغییر رمز ورود</button>
+            </div>
+
+            <div class="glass-card">
+                <h3>مدیریت داده‌ها</h3>
+                <div class="form-group">
+                    <button class="btn" style="width: 100%;" id="backupDataBtn"><i class="bi bi-download"></i> پشتیبان‌گیری از داده‌ها</button>
+                </div>
+                <div class="form-group">
+                    <button class="btn" style="width: 100%;" id="restoreDataBtn"><i class="bi bi-upload"></i> بازیابی داده‌ها</button>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-warning" style="width: 100%;" id="resetDataBtn"><i class="bi bi-arrow-repeat"></i> ریست برنامه</button>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-danger" style="width: 100%;" id="deleteAllBtn"><i class="bi bi-trash"></i> حذف همه داده‌ها</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>اپلیکیشن مدیریت سرویس خانم پاپلی - نسخه 2.0</p>
+            <p>کلیه حقوق محفوظ است - 1403 | ذخیره‌سازی: <span id="storageStatus">محلی</span></p>
+        </footer>
+    </div>
+
+    <!-- مودال‌ها -->
+    <div class="modal" id="addPassengerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>افزودن مسافر جدید</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-input" id="passengerName" placeholder="نام و نام خانوادگی">
+            </div>
+            <div class="form-group">
+                <input type="tel" class="form-input" id="passengerPhone" placeholder="شماره تلفن">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-input" id="passengerAddress" placeholder="آدرس">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-input" id="passengerSchool" placeholder="مدرسه و کلاس">
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-input" id="passengerFare" placeholder="کرایه (تومان)">
+            </div>
+            <div class="form-group">
+                <select class="form-input" id="passengerPaymentType">
+                    <option value="daily">روزانه</option>
+                    <option value="monthly">ماهانه</option>
+                </select>
+            </div>
+            <button class="btn glow-animation" style="width: 100%;" id="savePassengerBtn"><i class="bi bi-check-lg"></i> ذخیره مسافر</button>
+        </div>
+    </div>
+
+    <div class="modal" id="editPassengerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>ویرایش مسافر</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-input" id="editPassengerName" placeholder="نام و نام خانوادگی">
+            </div>
+            <div class="form-group">
+                <input type="tel" class="form-input" id="editPassengerPhone" placeholder="شماره تلفن">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-input" id="editPassengerAddress" placeholder="آدرس">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-input" id="editPassengerSchool" placeholder="مدرسه و کلاس">
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-input" id="editPassengerFare" placeholder="کرایه (تومان)">
+            </div>
+            <div class="form-group">
+                <select class="form-input" id="editPassengerPaymentType">
+                    <option value="daily">روزانه</option>
+                    <option value="monthly">ماهانه</option>
+                </select>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-danger" id="deletePassengerBtn"><i class="bi bi-trash"></i> حذف</button>
+                <button class="btn glow-animation" id="updatePassengerBtn"><i class="bi bi-check-lg"></i> به‌روزرسانی</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="confirmModalTitle">تایید عمل</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <p id="confirmModalMessage">آیا از انجام این عمل مطمئن هستید؟</p>
+            <div class="action-buttons">
+                <button class="btn" id="confirmModalCancel">لغو</button>
+                <button class="btn btn-danger" id="confirmModalConfirm">تایید</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

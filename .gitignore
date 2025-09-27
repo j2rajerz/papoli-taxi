@@ -1,0 +1,27 @@
+# فایل‌های سیستم
+.DS_Store
+Thumbs.db
+
+# فایل‌های لاگ
+*.log
+npm-debug.log*
+
+# فایل‌های محیطی
+.env
+.env.local
+
+# فایل‌های ایدئ
+.vscode/
+.idea/
+
+# فایل‌های نصب
+node_modules/
+bower_components/
+
+# فایل‌های build
+dist/
+build/
+
+# فایل‌های موقت
+*.tmp
+*.temp

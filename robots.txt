@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /assets/
+
+Sitemap: https://j2rajerz.github.io/papoli-taxi/sitemap.xml
