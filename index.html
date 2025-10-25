@@ -108,7 +108,7 @@
             <div class="glass-card">
                 <h3>ثبت تراکنش جدید</h3>
                 <div class="form-group">
-                    <select class="form-input" id="transactionType">
+                    <select class="form-input" id="transactionType" aria-label="نوع تراکنش">
                         <option value="">نوع تراکنش</option>
                         <option value="income-cash">درآمد (نقدی)</option>
                         <option value="income-card">درآمد (کارت)</option>
@@ -120,7 +120,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <select class="form-input" id="transactionPassenger">
+                    <select class="form-input" id="transactionPassenger" aria-label="مسافر">
                         <option value="">مسافر (اختیاری)</option>
                     </select>
                 </div>
@@ -131,7 +131,7 @@
                     <input type="text" class="form-input" id="transactionDescription" placeholder="توضیحات">
                 </div>
                 <div class="form-group">
-                    <input type="date" class="form-input" id="transactionDate">
+                    <input type="date" class="form-input" id="transactionDate" aria-label="تاریخ تراکنش">
                 </div>
                 <button class="btn glow-animation" style="width: 100%;" id="saveTransactionBtn"><i class="bi bi-check-lg"></i> ثبت تراکنش</button>
             </div>
@@ -159,15 +159,15 @@
             <div class="glass-card">
                 <h3>ارسال صورتحساب</h3>
                 <div class="form-group">
-                    <select class="form-input" id="selectCustomer">
+                    <select class="form-input" id="selectCustomer" aria-label="انتخاب مسافر">
                         <option value="">انتخاب مسافر</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="date" class="form-input" id="fromDate" placeholder="از تاریخ">
+                    <input type="date" class="form-input" id="fromDate" placeholder="از تاریخ" aria-label="از تاریخ">
                 </div>
                 <div class="form-group">
-                    <input type="date" class="form-input" id="toDate" placeholder="تا تاریخ">
+                    <input type="date" class="form-input" id="toDate" placeholder="تا تاریخ" aria-label="تا تاریخ">
                 </div>
                 <button class="btn glow-animation" style="width: 100%;" id="generateReportBtn"><i class="bi bi-file-text"></i> ایجاد گزارش</button>
                 <button class="btn" style="width: 100%; margin-top: 10px;" id="sendSMSBtn"><i class="bi bi-send"></i> ارسال از طریق SMS</button>
@@ -194,6 +194,7 @@
                 </div>
                 <button class="btn" style="width: 100%;" id="saveCloudSettings"><i class="bi bi-cloud-upload"></i> ذخیره تنظیمات ابری</button>
                 <button class="btn" style="width: 100%; margin-top: 10px;" id="syncNowBtn"><i class="bi bi-arrow-repeat"></i> همگام‌سازی الآن</button>
+                <button class="btn" style="width: 100%; margin-top: 10px;" id="saveToCloudBtn"><i class="bi bi-cloud-arrow-up"></i> ذخیره در ابر</button>
                 
                 <div class="sync-status" id="cloudStatus">
                     <span class="status-indicator status-offline"></span>
@@ -260,7 +261,7 @@
                 <input type="number" class="form-input" id="passengerFare" placeholder="کرایه (تومان)">
             </div>
             <div class="form-group">
-                <select class="form-input" id="passengerPaymentType">
+                <select class="form-input" id="passengerPaymentType" aria-label="نوع پرداخت">
                     <option value="daily">روزانه</option>
                     <option value="monthly">ماهانه</option>
                 </select>
@@ -291,7 +292,7 @@
                 <input type="number" class="form-input" id="editPassengerFare" placeholder="کرایه (تومان)">
             </div>
             <div class="form-group">
-                <select class="form-input" id="editPassengerPaymentType">
+                <select class="form-input" id="editPassengerPaymentType" aria-label="نوع پرداخت">
                     <option value="daily">روزانه</option>
                     <option value="monthly">ماهانه</option>
                 </select>
@@ -317,6 +318,8 @@
         </div>
     </div>
 
-    <script src="assets/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.9.2/build/moment-jalaali.min.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
 </body>
 </html>
